@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101f2c">
+  <meta name="description" content="Um teste interativo e reflexivo com até 96 perguntas para descobrir afinidades entre 12 perfis de pensamento jurídico.">
+  <title>JurisPersona — Descubra seu perfil jurídico</title>
+  <style>
+    :root { --ink:#142534;--ink2:#394b56;--muted:#6f7b81;--paper:#f8f7f2;--ivory:#f2eee6;--white:#fff;--line:#e3e2dc;--accent:#127f78;--accentDeep:#08635e;--gold:#bd9259;--glow:#daf0e9;--shadow:0 18px 54px rgba(24,42,52,.095);--radius:22px; }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.5}
+    button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    a{color:inherit} .hidden{display:none!important} .wrap{width:min(1120px,calc(100% - 48px));margin:auto}
+    header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(21,45,55,.1)}
+    .brand{display:flex;align-items:center;gap:11px;letter-spacing:-.045em;font-size:22px;font-weight:800}.brandmark{width:37px;height:37px;display:grid;place-items:center;border-radius:12px;color:var(--white);background:var(--ink);font:24px Georgia,serif;line-height:1}
+    .brand em{color:var(--accent);font-style:normal}.navnote{font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+    .intro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.86fr);gap:56px;align-items:center;padding:82px 0 68px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--accentDeep)}.eyebrow:before{content:"";width:25px;height:2px;background:var(--gold)}
+    h1,h2,h3,p{margin-top:0}h1,.display{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.047em;line-height:1.06}h1{font-size:clamp(48px,5.2vw,78px);margin:23px 0 25px}h1 span,.display span{color:var(--accent)}
+    .lead{font-size:17px;line-height:1.75;color:#52616a;max-width:620px;margin-bottom:31px}.hero-pills{display:flex;gap:9px;flex-wrap:wrap}.pill{background:#e9eee9;border:1px solid #dce4df;border-radius:99px;padding:8px 12px;font-size:12px;color:#42585c;font-weight:700}
+    .hero-art{min-height:400px;position:relative;border-radius:30px;overflow:hidden;background:#142b37;box-shadow:var(--shadow);color:#fff;padding:38px;display:flex;flex-direction:column;justify-content:space-between;isolation:isolate}.hero-art::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 74% 42%,#36776b77,transparent 50%),linear-gradient(135deg,transparent 30%,#172b37 82%);z-index:-1}.hero-art:before{content:"";position:absolute;right:-110px;top:0;width:380px;height:380px;border:1px solid #ffffff22;border-radius:50%;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff08,0 0 0 135px #ffffff06;z-index:-1}
+    .art-top{display:flex;justify-content:space-between;color:#ffffffb5;font-size:11px;font-weight:700;letter-spacing:.16em}.scales{font-family:Georgia,serif;font-size:165px;line-height:1;color:#dfc38f;text-align:center;text-shadow:0 16px 50px #0008;transform:translateY(10px)}.art-bottom{border-top:1px solid #ffffff37;padding-top:20px;display:flex;justify-content:space-between;align-items:end;gap:18px}.art-bottom strong{font:25px Georgia,serif;line-height:1.1;font-weight:400}.art-bottom small{color:#ffffffa8;max-width:115px;text-align:right;font-size:12px}
+    .section-top{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:15px 0 18px}.section-top h2{font:30px Georgia,serif;margin:0;letter-spacing:-.03em}.section-top p{color:var(--muted);font-size:13px;margin:0}
+    .mode-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.mode{border:1px solid var(--line);border-radius:17px;background:#fff;padding:23px 17px;text-align:left;transition:.2s ease;min-height:170px;position:relative}.mode:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.mode.selected{border:2px solid var(--accent);background:#f1faf6;padding:22px 16px}.mode .num{font:36px Georgia,serif;letter-spacing:-.06em;line-height:1}.mode small{color:var(--muted);font-weight:600}.mode strong{font-size:15px;display:block;margin:17px 0 5px}.mode .caption{font-size:12px;color:var(--muted);line-height:1.5}.mode .tick{position:absolute;right:15px;top:16px;background:var(--accent);color:white;width:21px;height:21px;border-radius:50%;display:none;place-items:center;font-size:13px}.mode.selected .tick{display:grid}
+    .start-row{display:flex;align-items:center;gap:19px;flex-wrap:wrap;margin:26px 0 35px}.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:13px 24px;border:0;border-radius:12px;font-weight:750;transition:transform .15s,background .15s;text-decoration:none}.button:hover{transform:translateY(-1px)}.button.primary{background:var(--accent);color:#fff}.button.primary:hover{background:var(--accentDeep)}.button.dark{background:var(--ink);color:#fff}.button.soft{background:#e9eeeb;color:#36535a}.button.outline{border:1px solid var(--line);background:#fff;color:var(--ink)}.note{font-size:13px;color:var(--muted)}
+    .divider{border:0;border-top:1px solid var(--line);margin:20px 0 30px}.about-profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:75px}.profile-mini{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;font-size:13px;font-weight:700}.profile-mini .dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--accent)}
+    main#quiz{max-width:850px;margin:0 auto;padding:35px 0 80px}.quiz-header{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:22px}.sm-label{text-transform:uppercase;letter-spacing:.13em;color:var(--accentDeep);font-weight:800;font-size:11px}.quiz-counter{color:var(--muted);font-size:13px;font-weight:700}.progress-track{height:8px;background:#e2e7e3;border-radius:50px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),#9cbd9e);width:0;transition:width .35s ease}
+    .quiz-card{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:25px;padding:clamp(24px,4vw,54px);margin:25px 0}.q-icon{display:grid;place-items:center;background:#eaf4ef;width:50px;height:50px;border-radius:16px;color:var(--accent);font:25px Georgia,serif;margin-bottom:25px}.question{font:clamp(27px,4vw,42px)/1.22 Georgia,serif;letter-spacing:-.025em;min-height:100px;margin-bottom:14px}.prompt{color:var(--muted);font-size:13px;margin-bottom:30px}.answers{display:grid;gap:10px}.answer{display:flex;align-items:center;gap:14px;width:100%;border:1px solid #e4e6e2;border-radius:12px;padding:15px 16px;background:#fff;text-align:left;color:var(--ink);transition:.15s}.answer:hover{background:#f2f9f6;border-color:#90c5ba}.answer.selected{border-color:var(--accent);background:#e8f7ef;box-shadow:inset 0 0 0 1px var(--accent)}.answer .kbd{border:1px solid #d8dcd9;background:#f7f8f6;border-radius:6px;width:29px;height:29px;display:grid;place-items:center;color:#5c7175;font-weight:800;font-size:12px;flex:0 0 29px}.answer.selected .kbd{border-color:var(--accent);background:var(--accent);color:#fff}.answer span:last-child{font-size:14px;font-weight:600}.keyboard-note{text-align:center;color:#8b9697;font-size:12px;margin-top:21px}
+    .quiz-foot{display:flex;justify-content:space-between;align-items:center;gap:12px}.linkbtn{border:0;background:none;color:var(--muted);font-weight:700;padding:10px}.linkbtn:hover{color:var(--ink)}.quiz-foot .left{display:flex;gap:9px;align-items:center}.footnote{font-size:12px;color:#95a1a1;text-align:center;margin-top:35px}
+    #results{padding-top:48px;padding-bottom:78px}.result-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);gap:35px;align-items:center;background:#142b37;color:#fff;border-radius:25px;padding:clamp(29px,4vw,54px);overflow:hidden;position:relative}.result-top:before{content:"";position:absolute;width:350px;height:350px;border:1px solid #ffffff2a;border-radius:50%;right:-170px;top:-80px;box-shadow:0 0 0 35px #ffffff08,0 0 0 70px #ffffff07}.result-top .sm-label{color:#e4c78f}.result-top h1{font:clamp(40px,5.5vw,63px)/1.1 Georgia,serif;margin:17px 0;letter-spacing:-.04em}.result-top p{color:#d1dcdb;line-height:1.65;max-width:620px;margin-bottom:17px}.result-number{font:90px Georgia,serif;color:#e4c78f;letter-spacing:-.07em;text-align:center;line-height:1}.result-number small{font:17px ui-sans-serif,sans-serif;color:#ffffff9f;letter-spacing:0}.result-info{margin-top:14px;color:#d7e7df;text-align:center;font-size:13px;line-height:1.5}.result-tag{background:#ffffff16;border:1px solid #ffffff2b;color:#e0e9e5;padding:7px 13px;border-radius:30px;display:inline-block;font-size:12px;font-weight:700}
+    .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 35px}.results-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:#fff;border-radius:18px;padding:25px;box-shadow:0 3px 20px #12283605}.panel h2{font:28px Georgia,serif;letter-spacing:-.03em;margin-bottom:7px}.panel-sub{font-size:13px;color:var(--muted);margin-bottom:24px}.score-list{display:flex;flex-direction:column;gap:14px}.score-row{display:grid;grid-template-columns:128px 1fr 43px;align-items:center;gap:13px}.score-name{font-size:13px;font-weight:750}.score-track{background:#eef0ee;height:10px;border-radius:22px;overflow:hidden}.score-track > i{display:block;height:100%;border-radius:22px;background:#aab9b5;transition:width .5s}.score-row:nth-child(1) .score-track>i{background:#0a8478}.score-row:nth-child(2) .score-track>i{background:#cfac73}.score-row:nth-child(3) .score-track>i{background:#658c88}.score-num{font-size:13px;color:var(--muted);font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+    .secondary-cards{display:grid;gap:12px}.secondary{background:#f6f7f4;padding:15px;border-radius:12px;border:1px solid #e9ece7}.secondary .small{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}.secondary h3{font:22px Georgia,serif;margin:5px 0 4px}.secondary p{font-size:12.5px;line-height:1.55;color:#5e7076;margin:0}.thin-list{margin:0;padding-left:20px;color:#5e7076;font-size:14px;line-height:1.7}.interpretation{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}.interpretation .panel{min-height:230px}.interpretation h3{font:23px Georgia,serif;margin-bottom:10px}.interpretation p{font-size:14px;line-height:1.7;color:var(--ink2)}.muted{color:var(--muted)}
+    .faq{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:12px 22px}.faq details{padding:16px 2px;border-bottom:1px solid var(--line)}.faq details:last-child{border:0}.faq summary{font-weight:750;cursor:pointer;font-size:14px}.faq p{font-size:13px;color:var(--muted);line-height:1.7;margin:12px 0 0}.review-row{font-size:12px;border-bottom:1px solid var(--line);padding:10px 0;display:flex;justify-content:space-between;gap:14px}.review-row span:first-child{flex:1}.review-row strong{white-space:nowrap;color:var(--accentDeep)}
+    footer{border-top:1px solid var(--line);padding:25px 0 43px;font-size:12px;color:#889394;display:flex;justify-content:space-between;gap:20px}
+    .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);background:var(--ink);color:white;border-radius:13px;box-shadow:var(--shadow);padding:12px 20px;font-size:13px;font-weight:700;transition:.3s;z-index:20;pointer-events:none}.toast.show{transform:translate(-50%,0)}
+    @media(max-width:850px){.intro-grid{grid-template-columns:1fr;padding:58px 0 34px;gap:30px}.hero-art{min-height:265px}.scales{font-size:110px}.mode-grid{grid-template-columns:repeat(2,1fr)}.about-profiles{grid-template-columns:repeat(2,1fr)}.results-grid,.interpretation{grid-template-columns:1fr}}
+    @media(max-width:560px){.wrap{width:min(100% - 30px,1120px)}header{height:66px}.navnote{font-size:10px;text-align:right}.hero-art{padding:26px}.intro-grid{padding-top:42px}h1{font-size:47px}.lead{font-size:15px}.section-top{align-items:start;display:block}.mode-grid{gap:9px}.mode{padding:16px 13px;min-height:161px}.mode.selected{padding:15px 12px}.mode .num{font-size:29px}.about-profiles{gap:8px}.profile-mini{font-size:11px;padding:10px}.quiz-card{margin:16px 0;padding:25px 18px}.question{font-size:29px;min-height:130px}.quiz-foot .button{padding:11px 14px;font-size:12px}.result-top{grid-template-columns:1fr;gap:8px}.result-number{text-align:left;font-size:72px}.result-info{text-align:left}.score-row{grid-template-columns:110px 1fr 37px;gap:7px}.score-name{font-size:12px}.result-actions .button{flex:1;font-size:12px;padding:11px 8px}footer{display:block}footer span{display:block;margin:7px 0}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+    @media print{header,.result-actions,footer,.faq,.quiz-foot,#intro,#quiz,.button{display:none!important}body{background:white}#results{display:block!important;padding:0}.wrap{width:100%}.result-top,.panel{box-shadow:none;break-inside:avoid}.result-top{-webkit-print-color-adjust:exact;print-color-adjust:exact}.results-grid,.interpretation{grid-template-columns:1fr 1fr}.score-track>i{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="brandmark" aria-hidden="true">§</div>Juris<em>Persona</em></div>
+    <div class="navnote">Laboratório de pensamento jurídico<br>edição interativa</div>
+  </header>
+
+  <main id="intro">
+    <div class="intro-grid">
+      <div>
+        <div class="eyebrow">Descubra sua visão do Direito</div>
+        <h1>Como você <span>pensa</span> o Direito?</h1>
+        <p class="lead">Você é mais garantista, legalista, constitucionalista, pragmatista ou uma combinação de correntes? Responda a perguntas objetivas e descubra suas afinidades entre <strong>12 perfis jurídicos</strong>.</p>
+        <div class="hero-pills"><span class="pill">12 perspectivas</span><span class="pill">Até 96 questões</span><span class="pill">Resultado detalhado</span><span class="pill">Sem cadastro</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="art-top"><span>JURISPRUDÊNCIA • IDEIAS</span><span>JP/12</span></div><div class="scales">⚖</div><div class="art-bottom"><strong>Seu modo de julgar<br>tem uma assinatura.</strong><small>Explore princípios, métodos e limites.</small></div></div>
+    </div>
+    <div class="section-top"><h2>Escolha a profundidade</h2><p>Quanto mais respostas, mais nuances aparecem no seu resultado.</p></div>
+    <div class="mode-grid" id="modeGrid" role="group" aria-label="Escolha a modalidade do teste">
+      <button type="button" class="mode" data-mode="rapido" aria-pressed="false"><span class="tick">✓</span><div class="num">36 <small>questões</small></div><strong>Essencial</strong><span class="caption">3 perguntas por perfil. Uma primeira leitura.</span></button>
+      <button type="button" class="mode" data-mode="completo" aria-pressed="false"><span class="tick">✓</span><div class="num">72 <small>questões</small></div><strong>Completo</strong><span class="caption">6 perguntas por perfil. Mais consistência.</span></button>
+      <button type="button" class="mode selected" data-mode="maximo" aria-pressed="true"><span class="tick">✓</span><div class="num">96 <small>questões</small></div><strong>Investigação máxima</strong><span class="caption">8 perguntas por perfil. Exploração mais detalhada.</span></button>
+      <button type="button" class="mode" data-mode="adaptativo" aria-pressed="false"><span class="tick">✓</span><div class="num">60–96 <small>questões</small></div><strong>Sequência adaptativa</strong><span class="caption">Continua enquanto os perfis principais estiverem próximos.</span></button>
+    </div>
+    <div class="start-row"><button type="button" class="button primary" id="startBtn">Começar avaliação <span aria-hidden="true">→</span></button><button type="button" class="button outline hidden" id="resumeBtn">Retomar onde parei ↗</button><span class="note">As respostas ficam apenas neste navegador.</span></div>
+    <hr class="divider">
+    <div class="section-top"><h2>Os 12 perfis analisados</h2><p>Correntes que podem se complementar ou entrar em tensão.</p></div>
+    <div class="about-profiles" id="profileMinis"></div>
+  </main>
+
+  <main id="quiz" class="hidden" aria-live="polite">
+    <div class="quiz-header"><div><div class="sm-label" id="quizMode">INVESTIGAÇÃO MÁXIMA</div><div class="quiz-counter" id="quizCounter">Questão 1 de 96</div></div><button type="button" class="linkbtn" id="exitBtn">Salvar e sair ×</button></div>
+    <div class="progress-track" role="progressbar" aria-label="Progresso do teste" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="quiz-card"><div class="q-icon" aria-hidden="true">§</div><h2 class="question" id="questionText"></h2><p class="prompt">Quanto você concorda com esta afirmação? Pense na sua posição, não na resposta “certa”.</p><div class="answers" id="answers"></div><p class="keyboard-note">Atalho: use as teclas 1 a 5 para responder.</p></div>
+    <div class="quiz-foot"><div class="left"><button type="button" class="button outline" id="backBtn">← Anterior</button><button type="button" class="linkbtn" id="restartBtn">Recomeçar</button></div><button type="button" class="button primary" id="nextBtn" disabled>Próxima →</button></div>
+    <div class="footnote">O teste explora afinidades teóricas. Não é uma avaliação psicológica validada nem mede competência profissional.</div>
+  </main>
+
+  <main id="results" class="hidden">
+    <div class="result-top"><div><div class="sm-label">SEU MAPA DE PENSAMENTO JURÍDICO</div><h1 id="resultTitle"></h1><p id="resultDescription"></p><span class="result-tag" id="resultTag"></span></div><div><div class="result-number" id="resultNumber"></div><div class="result-info" id="resultInfo"></div></div></div>
+    <div class="result-actions"><button type="button" class="button primary" id="copyBtn">Copiar resumo</button><button type="button" class="button outline" id="printBtn">Imprimir / PDF</button><button type="button" class="button outline" id="exportBtn">Exportar respostas</button><button type="button" class="button soft" id="newBtn">Novo teste</button></div>
+    <div class="results-grid"><section class="panel"><h2>Suas 12 afinidades</h2><p class="panel-sub">Ordenadas por pontuação. Valores indicam concordância ponderada, não probabilidade ou percentil.</p><div id="scoreList" class="score-list"></div></section><section class="panel"><h2>Além do primeiro lugar</h2><p class="panel-sub">Seus perfis secundários ajudam a entender sua combinação.</p><div id="secondaryCards" class="secondary-cards"></div></section></div>
+    <div class="interpretation"><section class="panel"><h3>Como interpretar seu perfil</h3><p id="interpretText"></p><p class="muted" id="interpretExtra"></p></section><section class="panel"><h3>O que observar</h3><p id="tensionText"></p><p class="muted" id="confidenceText"></p></section></div>
+    <div class="faq">
+      <details><summary>Como a classificação foi calculada?</summary><p>Para cada perfil, o teste calcula a média de suas respostas nas questões correspondentes. Algumas perguntas são invertidas para verificar concordâncias e discordâncias. A média é convertida para escala de 0 a 100: 0 indica forte discordância com o perfil; 50, neutralidade; e 100, forte concordância. As perguntas são distribuídas entre os 12 perfis, e a ordem de apresentação pode mudar conforme as respostas. Os valores não somam 100% porque cada perfil é medido separadamente.</p></details>
+      <details><summary>Por que recebi mais de um perfil forte?</summary><p>Essas categorias representam perspectivas sobre o Direito, não tipos exclusivos de personalidade. É possível ser garantista e constitucionalista, ou legalista e positivista, por exemplo. Empates ou proximidade entre resultados indicam que mais de uma lente descreve sua visão.</p></details>
+      <details><summary>O teste foi validado cientificamente?</summary><p>Não. Trata-se de um instrumento exploratório educacional, criado para reflexão pessoal. Ele não substitui avaliação psicométrica, pesquisa acadêmica ou análise profissional. Especialmente os resultados da modalidade essencial devem ser lidos com cautela.</p></details>
+      <details id="reviewDetails"><summary>Rever perguntas e respostas</summary><div id="reviewList"></div></details>
+    </div>
+  </main>
+
+  <footer><span>JurisPersona © 2026 • Projeto educativo de teoria e filosofia do Direito.</span><span>Privacidade: funciona localmente e não envia suas respostas a servidores.</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const PROFILES = [
+ {id:'gar', name:'Garantista', desc:'Prioriza os direitos fundamentais, o devido processo legal, a presunção de inocência e os limites ao poder punitivo do Estado.', lens:'Seu olhar começa pelas garantias individuais. Para você, a legitimidade da decisão importa tanto quanto o resultado.', watch:'O desafio está em combinar proteção de direitos com respostas institucionais efetivas aos conflitos.'},
+ {id:'leg', name:'Legalista', desc:'Valoriza a legislação vigente, a previsibilidade e a fidelidade às escolhas normativas feitas pelo legislador.', lens:'Você encontra segurança na autoridade da lei e na previsibilidade das decisões.', watch:'É importante distinguir fidelidade à lei de aplicação mecânica, considerando sempre a hierarquia constitucional.'},
+ {id:'pos', name:'Positivista', desc:'Distingue validade jurídica de avaliação moral e identifica o Direito a partir dos critérios reconhecidos pelo ordenamento.', lens:'Você separa a pergunta “o que é Direito válido?” da pergunta “o Direito é justo?”.', watch:'Reconhecer a validade de uma norma não significa defendê-la moralmente nem ignorar direitos fundamentais.'},
+ {id:'for', name:'Formalista', desc:'Valoriza método, técnica, estrutura da fundamentação, regras e procedimentos decisórios.', lens:'Você vê no rigor metodológico uma forma de limitar arbitrariedades e preservar coerência.', watch:'O formalismo pode ganhar quando dialoga com o contexto e evita transformar a técnica em um fim em si mesma.'},
+ {id:'con', name:'Constitucionalista', desc:'Coloca a supremacia da Constituição e os direitos fundamentais no centro da interpretação jurídica.', lens:'Você costuma interpretar conflitos normativos a partir dos parâmetros constitucionais.', watch:'A centralidade da Constituição não elimina a necessidade de justificar escolhas interpretativas nem o respeito às competências institucionais.'},
+ {id:'ati', name:'Ativista', desc:'Admite uma atuação judicial mais interventiva, inclusive para enfrentar omissões e proteger direitos em políticas públicas.', lens:'Você tende a considerar legítimas medidas judiciais concretas diante de omissões relevantes do poder público.', watch:'A intervenção precisa ser fundamentada, proporcional e atenta à capacidade institucional do Judiciário.'},
+ {id:'auto', name:'Autocontido', desc:'Valoriza a moderação judicial e o respeito às escolhas legítimas dos Poderes Legislativo e Executivo.', lens:'Você atribui grande peso à separação de poderes e à legitimidade democrática das decisões políticas.', watch:'Autocontenção não é omissão: há momentos em que a Constituição exige atuação judicial efetiva.'},
+ {id:'pra', name:'Pragmatista', desc:'Examina consequências reais, incentivos, viabilidade e eficácia das decisões jurídicas.', lens:'Você considera que uma solução jurídica precisa funcionar além do papel.', watch:'Consequências não autorizam ignorar normas válidas nem substituir justificações jurídicas por conveniência.'},
+ {id:'ori', name:'Originalista', desc:'Valoriza o significado original do texto constitucional e seu contexto histórico de adoção.', lens:'Você investiga o significado histórico da Constituição como limite à interpretação atual.', watch:'O desafio é distinguir significado público original de intenções individuais e lidar com novas realidades.'},
+ {id:'tex', name:'Textualista', desc:'Dá primazia ao texto normativo e aos limites linguísticos da interpretação.', lens:'Você atribui peso decisivo às palavras que foram efetivamente aprovadas.', watch:'O texto exige contexto linguístico e sistemático; textualismo não se resume à leitura isolada de frases.'},
+ {id:'rea', name:'Realista', desc:'Considera fatos, instituições, incentivos e fatores humanos que influenciam o Direito em funcionamento.', lens:'Você procura entender não apenas o que a norma diz, mas como tribunais e instituições realmente atuam.', watch:'Reconhecer fatores extrajurídicos não significa considerar irrelevantes normas, princípios ou argumentação.'},
+ {id:'pun', name:'Punitivista', desc:'Dá maior peso ao rigor da resposta penal, à reprovação do delito e à função dissuasória da punição.', lens:'Você vê sanções firmes, especialmente diante de crimes graves, como instrumento relevante de proteção social.', watch:'Rigor penal não dispensa prova lícita, proporcionalidade, individualização da pena ou garantias processuais.'}
+];
+// Cada perfil contém 8 itens: 5 a favor e 3 em sentido inverso. true = pontuação invertida.
+const QUESTION_BANK = {
+ gar:[
+ ['Uma prova obtida ilegalmente deve ser excluída, mesmo que pareça convincente?',false],
+ ['A presunção de inocência deve prevalecer mesmo diante da pressão da opinião pública?',false],
+ ['O Estado deve ter limites rigorosos ao investigar e acusar uma pessoa?',false],
+ ['O direito à defesa é indispensável inclusive nos crimes mais graves?',false],
+ ['Em crimes chocantes, é aceitável reduzir garantias processuais para acelerar a condenação?',true],
+ ['A vontade de punir deve prevalecer quando há falhas graves na produção da prova?',true],
+ ['Uma condenação sem contraditório efetivo perde legitimidade?',false],
+ ['Em situações excepcionais, garantias individuais podem ser tratadas como detalhes secundários?',true]
+ ],
+ leg:[
+ ['Uma lei válida e clara deve ser aplicada mesmo quando seu resultado desagrada ao julgador?',false],
+ ['O juiz deve preferir a regra aprovada pelo Legislativo a uma solução criada por ele?',false],
+ ['Mudanças gerais nas regras jurídicas devem partir, em regra, do legislador?',false],
+ ['Respeitar as escolhas expressas na lei aumenta a previsibilidade das decisões?',false],
+ ['É legítimo afastar uma lei válida apenas porque o juiz considera seu resultado inadequado?',true],
+ ['A opinião pessoal do juiz deve ter mais peso do que uma regra legal aplicável?',true],
+ ['Uma norma impopular deve ser aplicada enquanto for juridicamente válida e constitucional?',false],
+ ['O julgador deve poder substituir livremente a solução legal pela que considera mais justa?',true]
+ ],
+ pos:[
+ ['Uma norma pode ser juridicamente válida mesmo sendo moralmente injusta?',false],
+ ['Para saber qual é o Direito vigente, devo observar os critérios de validade do sistema jurídico?',false],
+ ['Validade jurídica e mérito moral são questões distintas?',false],
+ ['Discordar moralmente de uma lei não a torna automaticamente inválida?',false],
+ ['Uma regra injusta jamais pode ser considerada Direito?',true],
+ ['A consciência moral do julgador deve ser o principal critério de validade de uma lei?',true],
+ ['É possível criticar uma norma moralmente e ainda reconhecer sua validade jurídica?',false],
+ ['A origem e a forma de aprovação de uma norma são irrelevantes para reconhecer sua validade?',true]
+ ],
+ for:[
+ ['Uma boa sentença deve mostrar de forma clara os fatos, as normas aplicáveis e a conclusão?',false],
+ ['Prazos e ritos processuais são importantes para a segurança jurídica?',false],
+ ['A fundamentação deve demonstrar a conexão lógica entre fatos e regras jurídicas?',false],
+ ['Casos semelhantes devem receber decisões baseadas em métodos consistentes?',false],
+ ['O rigor técnico pode ser descartado sempre que a decisão parecer socialmente conveniente?',true],
+ ['É aceitável ignorar procedimentos formais para chegar mais rápido à solução desejada?',true],
+ ['A coerência do método de decisão é tão importante quanto seu resultado?',false],
+ ['Basta que a decisão pareça justa, mesmo que sua fundamentação seja pouco estruturada?',true]
+ ],
+ con:[
+ ['Toda lei deve ser interpretada de maneira compatível com os direitos fundamentais?',false],
+ ['A Constituição deve orientar a interpretação das demais normas jurídicas?',false],
+ ['O controle de constitucionalidade é necessário quando o legislador ultrapassa limites constitucionais?',false],
+ ['A dignidade da pessoa humana deve ter peso concreto na fundamentação judicial?',false],
+ ['Uma lei ordinária clara deve prevalecer mesmo que contrarie a Constituição?',true],
+ ['Os princípios constitucionais quase nunca devem influenciar a solução de conflitos?',true],
+ ['A proteção constitucional deve valer mesmo para pessoas socialmente impopulares?',false],
+ ['A conveniência administrativa pode justificar deixar a Constituição em segundo plano?',true]
+ ],
+ ati:[
+ ['Diante de omissão estatal persistente, o Judiciário pode impor medidas concretas para proteger direitos?',false],
+ ['Se uma política pública viola direitos fundamentais, o juiz pode exigir sua reformulação?',false],
+ ['Decisões judiciais estruturais podem ser necessárias para enfrentar violações coletivas?',false],
+ ['A Justiça deve agir efetivamente quando os demais poderes falham no cumprimento de direitos?',false],
+ ['Mesmo diante de omissão grave, o Judiciário nunca deve fixar prazos ao Executivo?',true],
+ ['Definir providências concretas para efetivar direitos está sempre fora da função judicial?',true],
+ ['Em certos casos, o juiz pode acompanhar a implementação de uma política pública determinada judicialmente?',false],
+ ['A separação de poderes impede qualquer intervenção judicial em políticas públicas?',true]
+ ],
+ auto:[
+ ['O juiz deve respeitar a margem de escolha política do Executivo e do Legislativo?',false],
+ ['O Judiciário deve evitar substituir decisões técnicas legítimas por preferências próprias?',false],
+ ['A separação de poderes exige cautela antes de impor políticas públicas específicas?',false],
+ ['Mesmo discordando de uma lei, o magistrado deve considerar sua legitimidade democrática?',false],
+ ['O juiz deve redesenhar políticas públicas sempre que enxergar uma opção melhor?',true],
+ ['A preferência pessoal de um magistrado basta para afastar escolhas políticas legítimas?',true],
+ ['Toda intervenção judicial na gestão pública deve ser justificada por limites institucionais claros?',false],
+ ['Quanto mais o Judiciário comandar a administração pública, melhor será a democracia?',true]
+ ],
+ pra:[
+ ['Antes de decidir, é importante avaliar consequências práticas para as pessoas afetadas?',false],
+ ['Entre interpretações juridicamente defensáveis, devo preferir a que funciona melhor na prática?',false],
+ ['Uma ordem judicial impossível de cumprir pode ser pior que uma solução gradual e viável?',false],
+ ['Custos institucionais e efeitos de longo prazo devem ser considerados em uma decisão?',false],
+ ['Os efeitos concretos de uma sentença são irrelevantes para avaliar sua qualidade?',true],
+ ['A possibilidade real de cumprimento de uma decisão não merece atenção do juiz?',true],
+ ['A solução de um caso deve considerar os incentivos que cria para situações futuras?',false],
+ ['Se a fundamentação estiver formalmente correta, consequências graves nunca importam?',true]
+ ],
+ ori:[
+ ['O significado público da Constituição na época de sua adoção deve orientar sua interpretação atual?',false],
+ ['Para interpretar uma norma constitucional, é importante investigar o uso histórico das palavras?',false],
+ ['O contexto histórico da promulgação deve ter peso na interpretação constitucional?',false],
+ ['Mudanças profundas no significado constitucional devem ocorrer preferencialmente por emendas?',false],
+ ['O sentido histórico de um dispositivo constitucional não tem nenhum valor interpretativo?',true],
+ ['A Constituição deve sempre assumir o significado moral mais recente, sem considerar sua origem?',true],
+ ['Evidências históricas podem limitar interpretações constitucionais contemporâneas?',false],
+ ['É inútil pesquisar como as palavras constitucionais eram entendidas na época de sua adoção?',true]
+ ],
+ tex:[
+ ['O significado das palavras de uma norma deve limitar as interpretações possíveis?',false],
+ ['Se um texto legal é preciso, não devo substituí-lo por intenções presumidas do legislador?',false],
+ ['As palavras efetivamente aprovadas importam mais que conjecturas sobre os motivos de quem as escreveu?',false],
+ ['Uma interpretação jurídica precisa ser linguisticamente plausível diante do texto da norma?',false],
+ ['O propósito atribuído à lei autoriza até uma interpretação contrária às suas palavras?',true],
+ ['O texto normativo é apenas uma sugestão, sem força para limitar a interpretação?',true],
+ ['Antes de recorrer a argumentos externos, devo analisar o vocabulário e a estrutura do dispositivo?',false],
+ ['Uma decisão pode contrariar o significado comum das palavras sem necessidade de justificativa especial?',true]
+ ],
+ rea:[
+ ['Entender como juízes realmente decidem é tão importante quanto estudar a doutrina?',false],
+ ['O contexto social e institucional pode influenciar o resultado de um processo?',false],
+ ['Diferenças de entendimento entre tribunais podem refletir fatores além da lei escrita?',false],
+ ['Para compreender uma norma, devo observar como ela funciona na vida real?',false],
+ ['As decisões judiciais são totalmente explicáveis por dedução lógica a partir das leis?',true],
+ ['O comportamento concreto dos tribunais pouco importa para compreender o Direito?',true],
+ ['Experiências, incentivos e rotinas de trabalho podem afetar decisões judiciais?',false],
+ ['Fatores humanos e institucionais nunca influenciam como magistrados interpretam as normas?',true]
+ ],
+ pun:[
+ ['Em crimes graves, penas mais rigorosas costumam ser uma resposta adequada?',false],
+ ['Dentro dos limites legais, punições firmes são importantes para proteger a sociedade?',false],
+ ['A reincidência deve ter peso significativo na definição da pena, respeitados os limites legais?',false],
+ ['A função de desestimular novos crimes deve ter peso elevado na política criminal?',false],
+ ['A gravidade de um crime quase nunca deve influenciar a intensidade da resposta penal?',true],
+ ['Mesmo diante de crimes muito violentos, o rigor da sanção deve ter papel pequeno?',true],
+ ['A pena deve expressar reprovação clara às condutas mais lesivas?',false],
+ ['O efeito dissuasório da punição é irrelevante para decidir a política de sanções?',true]
+ ]
+};
+const BANK=[]; for (const p of PROFILES) QUESTION_BANK[p.id].forEach(([question,reverse],i)=>BANK.push({id:`${p.id}-${i}`,profile:p.id,index:i,question,reverse}));
+const BY_ID=Object.fromEntries(BANK.map(q=>[q.id,q]));
+const PROFILE_BY_ID=Object.fromEntries(PROFILES.map(p=>[p.id,p]));
+const MODES={rapido:{label:'ESSENCIAL',limit:36,perProfile:3},completo:{label:'COMPLETO',limit:72,perProfile:6},maximo:{label:'INVESTIGAÇÃO MÁXIMA',limit:96,perProfile:8},adaptativo:{label:'SEQUÊNCIA ADAPTATIVA',limit:96,perProfile:8}};
+const ANSWER_LABELS=['Discordo totalmente','Discordo','Nem concordo nem discordo','Concordo','Concordo totalmente'];
+const STORAGE='jurispersona-state-v1';
+const BASE_ORDER=['gar','auto','pra','pos','ati','tex','pun','leg','rea','con','ori','for'];
+let mode='maximo',session=null, advanceTimer=null;
+const $=id=>document.getElementById(id);
+const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._timeout);el._timeout=setTimeout(()=>el.classList.remove('show'),2400)}
+function save(){try{if(session)localStorage.setItem(STORAGE,JSON.stringify(session));else localStorage.removeItem(STORAGE)}catch(e){}}
+function load(){try{const data=JSON.parse(localStorage.getItem(STORAGE));if(!data||!MODES[data.mode]||!Array.isArray(data.sequence)||typeof data.answers!=='object'||!data.answers||typeof data.cursor!=='number')return null;if(data.sequence.some(id=>!BY_ID[id]))return null;data.cursor=Math.max(0,Math.min(data.cursor,Math.max(0,data.sequence.length-1)));return data}catch(e){return null}}
+function selectMode(m){mode=m;document.querySelectorAll('.mode').forEach(el=>{let active=el.dataset.mode===m;el.classList.toggle('selected',active);el.setAttribute('aria-pressed',String(active))})}
+function switchView(which){['intro','quiz','results'].forEach(id=>$(id).classList.toggle('hidden',id!==which));window.scrollTo({top:0,behavior:'instant'});}
+function answeredCount(){return session?Object.keys(session.answers).filter(id=>BY_ID[id]).length:0}
+function scoreFor(answers,profile){const qs=BANK.filter(q=>q.profile===profile&&Number.isInteger(answers[q.id]));if(!qs.length)return null;const values=qs.map(q=>q.reverse?6-answers[q.id]:answers[q.id]);return {score:Math.round((values.reduce((a,b)=>a+b,0)/values.length-1)*25),n:qs.length,values};}
+function scoresFor(answers){return PROFILES.map(p=>({...p,...(scoreFor(answers,p.id)||{score:50,n:0,values:[]})})).sort((a,b)=>b.score-a.score||b.n-a.n||a.name.localeCompare(b.name));}
+function nextQuestionId(){const m=MODES[session.mode];const count=answeredCount();if(count>=m.limit)return null;
+ const counts=Object.fromEntries(PROFILES.map(p=>[p.id,BANK.filter(q=>q.profile===p.id&&Number.isInteger(session.answers[q.id])).length]));
+ const least=Math.min(...Object.values(counts));const eligible=PROFILES.filter(p=>counts[p.id]===least&&counts[p.id]<m.perProfile);
+ if(!eligible.length)return null;
+ const rank=scoresFor(session.answers);const high=rank[0].score;
+ // After the first round, prioritize close contenders while continuing to cover every profile equally.
+ eligible.sort((a,b)=>{if(least===0)return BASE_ORDER.indexOf(a.id)-BASE_ORDER.indexOf(b.id);
+   const sa=scoreFor(session.answers,a.id)?.score??50,sb=scoreFor(session.answers,b.id)?.score??50;
+   const wa=Math.abs(high-sa),wb=Math.abs(high-sb);
+   return wa-wb||BASE_ORDER.indexOf(a.id)-BASE_ORDER.indexOf(b.id);
+ });
+ let target=eligible[0];return `${target.id}-${counts[target.id]}`;
+}
+function shouldEnd(){const n=answeredCount(),m=MODES[session.mode];if(n>=m.limit)return true;if(session.mode!=='adaptativo'||n<60||n%12!==0)return false;
+ const scores=scoresFor(session.answers);const lead=scores[0].score-scores[1].score;
+ const prior={};session.sequence.slice(0,n-12).forEach(id=>{if(session.answers[id])prior[id]=session.answers[id]});
+ const priorRank=scoresFor(prior);
+ return scores[0].score>=65&&lead>=12&&priorRank[0].id===scores[0].id;
+}
+function begin(m){clearTimeout(advanceTimer);session={mode:m,answers:{},sequence:[],cursor:0,finished:false,startedAt:new Date().toISOString()};const first=nextQuestionId();if(first)session.sequence.push(first);save();showQuiz()}
+function showQuiz(){switchView('quiz');renderQuestion()}
+function renderQuestion(){if(!session||session.finished){if(session?.finished)showResults();else switchView('intro');return}
+ const id=session.sequence[session.cursor];const q=BY_ID[id];if(!q)return;
+ const count=answeredCount(),total=MODES[session.mode].limit;
+ $('quizMode').textContent=MODES[session.mode].label;
+ $('quizCounter').textContent=`Questão ${session.cursor+1} de ${session.mode==='adaptativo'?'60 a 96':total}`;
+ $('questionText').textContent=q.question;
+ $('progressFill').style.width=`${Math.min(100,count/total*100)}%`;
+ $('progressTrack').setAttribute('aria-valuenow',String(Math.round(count/total*100)));
+ const selected=session.answers[id];
+ $('answers').innerHTML=ANSWER_LABELS.map((label,i)=>`<button type="button" class="answer ${selected===i+1?'selected':''}" data-value="${i+1}" aria-pressed="${selected===i+1?'true':'false'}"><span class="kbd">${i+1}</span><span>${htmlEscape(label)}</span></button>`).join('');
+ $('answers').querySelectorAll('button').forEach(el=>el.addEventListener('click',()=>answer(Number(el.dataset.value))));
+ $('backBtn').disabled=session.cursor===0;
+ $('nextBtn').disabled=!Number.isInteger(selected);
+ $('nextBtn').textContent= count>=total-1?'Ver resultado →':'Próxima →';
+}
+function answer(value){if(!session||session.finished)return;clearTimeout(advanceTimer);const id=session.sequence[session.cursor];session.answers[id]=value;save();
+ $('answers').querySelectorAll('button').forEach(el=>{const selected=Number(el.dataset.value)===value;el.classList.toggle('selected',selected);el.setAttribute('aria-pressed',String(selected))});$('nextBtn').disabled=false;
+ advanceTimer=setTimeout(advance,240);
+}
+function advance(){clearTimeout(advanceTimer);if(!session||session.finished)return;const id=session.sequence[session.cursor];if(!Number.isInteger(session.answers[id])){toast('Selecione uma resposta.');return}
+ if(session.cursor<session.sequence.length-1){session.cursor++;save();renderQuestion();return}
+ if(shouldEnd()){session.finished=true;save();showResults();return}
+ const next=nextQuestionId();if(!next){session.finished=true;save();showResults();return}
+ session.sequence.push(next);session.cursor++;save();renderQuestion();
+}
+function back(){clearTimeout(advanceTimer);if(session&&session.cursor>0){session.cursor--;save();renderQuestion()}}
+function goHome(){clearTimeout(advanceTimer);switchView('intro');$('resumeBtn').classList.toggle('hidden',!session||session.finished)}
+function reset(){if(!confirm('Deseja apagar as respostas atuais e recomeçar?'))return;clearTimeout(advanceTimer);session=null;save();selectMode(mode);goHome();toast('Pronto para começar outra avaliação.')}
+function confidence(scores,n){const margin=scores[0].score-scores[1].score;if(n>=72&&scores[0].score>=70&&margin>=15)return 'Indício relativamente forte';if(n>=48&&scores[0].score>=62&&margin>=8)return 'Indício moderado';return 'Leitura exploratória'}
+const TENSIONS=[
+ {a:'ati',b:'auto',text:'Você reconhece valor tanto na intervenção judicial quanto na deferência aos poderes eleitos. Essa combinação sugere atenção ao contexto e aos limites institucionais.'},
+ {a:'for',b:'pra',text:'Você valoriza o rigor técnico e, ao mesmo tempo, as consequências concretas. O ponto de equilíbrio é preservar o método sem ignorar efeitos práticos.'},
+ {a:'gar',b:'pun',text:'Você combina garantias processuais com rigor penal. São posições compatíveis quando a punição respeita prova lícita, proporcionalidade e ampla defesa.'},
+ {a:'leg',b:'ati',text:'Você valoriza a lei, mas aceita uma atuação judicial mais ativa. Vale refletir sobre quando a Constituição autoriza superar escolhas do legislador.'},
+ {a:'tex',b:'rea',text:'Você valoriza o texto e também observa o funcionamento real dos tribunais. Isso diferencia critérios normativos de explicações empíricas.'}
+];
+function profileCombination(rank){const a=rank[0],b=rank[1];if(a.score<58&&a.score-b.score<8)return 'Suas respostas não revelaram uma afinidade predominante muito marcada. Pode ser útil refazer a avaliação com mais questões e responder de modo menos neutro quando houver convicção.';
+ if(a.score-b.score<=6)return `Seu resultado é bastante híbrido: ${a.name} e ${b.name} aparecem praticamente empatados. Não se trata de um defeito do teste; diferentes métodos jurídicos podem coexistir em uma mesma visão.`;
+ return `Sua afinidade principal é ${a.name}, mas ${b.name} também ocupa lugar relevante. Isso sugere uma postura composta, não uma identidade jurídica exclusiva.`;
+}
+function showResults(){if(!session)return;switchView('results');const rank=scoresFor(session.answers),top=rank[0],second=rank[1],n=answeredCount();
+ const plural=top.score<58&&top.score-second.score<8;
+ $('resultTitle').textContent=plural?'Perfil jurídico plural':top.name;
+ $('resultDescription').textContent=plural?'As suas respostas mostram uma distribuição relativamente equilibrada entre as correntes analisadas.':top.lens;
+ $('resultNumber').innerHTML=`${top.score}<small>/100</small>`;
+ $('resultInfo').textContent=`Afinidade com ${top.name} · ${n} respostas`;
+ $('resultTag').textContent=confidence(rank,n)+(top.score-second.score<=6?' · perfil híbrido':'');
+ $('scoreList').innerHTML=rank.map(p=>`<div class="score-row"><span class="score-name">${htmlEscape(p.name)}</span><div class="score-track" aria-label="${htmlEscape(p.name)}: ${p.score} de 100"><i style="width:${p.score}%"></i></div><span class="score-num">${p.score}</span></div>`).join('');
+ $('secondaryCards').innerHTML=rank.slice(1,4).map((p,i)=>`<div class="secondary"><div class="small">${i+2}ª afinidade · ${p.score}/100</div><h3>${htmlEscape(p.name)}</h3><p>${htmlEscape(p.desc)}</p></div>`).join('');
+ $('interpretText').textContent=profileCombination(rank);
+ $('interpretExtra').textContent=top.watch;
+ const tension=TENSIONS.find(t=>rank.find(p=>p.id===t.a)?.score>=65&&rank.find(p=>p.id===t.b)?.score>=65);
+ $('tensionText').textContent=tension?tension.text:`Duas lentes fortes no seu resultado são ${top.name} e ${second.name}. Analise como elas se complementam e em quais conflitos podem propor soluções diferentes.`;
+ $('confidenceText').textContent=`Foram respondidas ${n} perguntas, com ${scoreFor(session.answers,top.id).n} itens dedicados ao perfil predominante. A distância para o segundo lugar é de ${top.score-second.score} pontos. As pontuações são heurísticas educativas, não medidas cientificamente validadas.`;
+ $('reviewList').innerHTML=session.sequence.filter(id=>Number.isInteger(session.answers[id])).map((id,i)=>`<div class="review-row"><span>${i+1}. ${htmlEscape(BY_ID[id].question)}</span><strong>${htmlEscape(ANSWER_LABELS[session.answers[id]-1])}</strong></div>`).join('');
+ $('resumeBtn').classList.add('hidden');
+}
+function summaryText(){const r=scoresFor(session.answers),n=answeredCount();return `JurisPersona — meu perfil jurídico\n${r[0].name} (${r[0].score}/100)${r[0].score-r[1].score<=6?' · resultado híbrido':''}\n${n} questões respondidas\n\nAfinidades:\n${r.map((p,i)=>`${i+1}. ${p.name}: ${p.score}/100`).join('\n')}\n\nEste teste é exploratório e não foi validado cientificamente.`}
+function copySummary(){const txt=summaryText();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(txt).then(()=>toast('Resumo copiado!')).catch(()=>fallbackCopy(txt))}else fallbackCopy(txt)}
+function fallbackCopy(txt){const el=document.createElement('textarea');el.value=txt;el.style.position='fixed';el.style.opacity='0';document.body.appendChild(el);el.select();try{document.execCommand('copy');toast('Resumo copiado!')}catch(e){toast('Seu navegador não permitiu copiar.')}el.remove()}
+function exportAnswers(){const report={app:'JurisPersona',mode:session.mode,date:new Date().toISOString(),warning:'Instrumento exploratório sem validação psicométrica.',scores:scoresFor(session.answers).map(x=>({perfil:x.name,pontuacao:x.score,questoes:x.n})),responses:session.sequence.filter(id=>Number.isInteger(session.answers[id])).map(id=>({id,pergunta:BY_ID[id].question,resposta:ANSWER_LABELS[session.answers[id]-1],valor:session.answers[id],pontuacao_invertida:BY_ID[id].reverse}))};const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='jurispersona-resultado.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Respostas exportadas.')}
+function init(){
+ $('profileMinis').innerHTML=PROFILES.map(p=>`<div class="profile-mini"><span class="dot"></span>${htmlEscape(p.name)}</div>`).join('');
+ document.querySelectorAll('.mode').forEach(el=>el.addEventListener('click',()=>selectMode(el.dataset.mode)));
+ $('startBtn').addEventListener('click',()=>{if(session&&!session.finished&&answeredCount()>0&&!confirm('Iniciar outro teste e substituir o progresso salvo?'))return;begin(mode)});
+ $('resumeBtn').addEventListener('click',()=>{if(!session)return;if(session.finished)showResults();else showQuiz()});
+ $('exitBtn').addEventListener('click',goHome);
+ $('backBtn').addEventListener('click',back);
+ $('nextBtn').addEventListener('click',advance);
+ $('restartBtn').addEventListener('click',reset);
+ $('newBtn').addEventListener('click',reset);
+ $('copyBtn').addEventListener('click',copySummary);
+ $('printBtn').addEventListener('click',()=>window.print());
+ $('exportBtn').addEventListener('click',exportAnswers);
+ document.addEventListener('keydown',e=>{if($('quiz').classList.contains('hidden')||e.altKey||e.ctrlKey||e.metaKey||e.target instanceof HTMLInputElement||e.target instanceof HTMLTextAreaElement)return;
+ if(/^[1-5]$/.test(e.key)){e.preventDefault();answer(Number(e.key))}else if(e.key==='ArrowLeft'){e.preventDefault();back()}else if(e.key==='ArrowRight'&&Number.isInteger(session.answers[session.sequence[session.cursor]])){e.preventDefault();advance()}});
+ session=load();if(session){selectMode(session.mode);if(session.finished)showResults();else{$('resumeBtn').classList.remove('hidden');switchView('intro')}}
+}
+init();
+</script>
+</body>
+</html>
